@@ -1,9 +1,7 @@
 public class Monsters {
     int strength = (int)(Math.random() * 8);
-    int color;
     String st="26C4";
     int cp=Integer.parseInt(st,16);// it convert st into hex number.
-
     String name = new String(Character.toChars(cp));
 
     public String getName(){
@@ -24,9 +22,8 @@ public class Monsters {
         this.strength = x;
     }
 
-    public Humans attack(Humans human){
-        int humanHealth = human.getHealth() - this.getStrength();
-        human.setHealth(humanHealth);
-        return human;
+    @Override
+    public String toString(){
+        return "Monsters{"+"strength="+strength+"name="+name+"}";
     }
 }

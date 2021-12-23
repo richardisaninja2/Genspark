@@ -28,6 +28,10 @@ public class  Humans{
         this.health = health;
         board = new Board();
     }
+    @Override
+    public String toString(){
+        return "Human={"+"health= "+health+ "name="+name+"}";
+    }
 
 
 }

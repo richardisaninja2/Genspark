@@ -40,12 +40,12 @@ public class Board {
        chad.setHealth(aHealth);
 
         if(chad.getHealth() <= 0){
-            System.out.println("The monster hits the human for " + monster1.getStrength()+ " damage, your health is less than 0; the human has died...");
+            System.out.println("The monster hits you for " + monster1.getStrength()+ " damage, your health is less than 0; you have died...");
     //if the monster kills the human
             //ends game
            System.exit(0);
         }else{
-            System.out.println("The monster hits the human for " +monster1.strength+ " damage, \n your health is now " +chad.getHealth());
+            System.out.println("The monster hits you for " +monster1.strength+ " damage, \n\tyour health is now " +chad.getHealth());
 
         }return ;
     }
@@ -65,7 +65,6 @@ public class Board {
     public void setChadLoc(String input){
        int[] loc = getChadLoc();
        int x = loc[0]; int y = loc[1];
-        Scanner scanner = new Scanner(System.in);
         String space = place.getName();
 
         if(input.equals("a") && y > 0){ //hello hello hi
@@ -124,11 +123,15 @@ public class Board {
             System.out.println("Congratulations you finished the game");
             System.exit(0);
         }else{
+            try {
             System.out.println(showLand());
-            System.out.println("               Choose a direction");
+            System.out.println("Choose a direction using w,s,a,d \n (w) for up, (s) for down (a) for left\n \t\t (d) for right");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             setChadLoc(input);
+        }catch(Exception e){
+                System.out.println(e);
+            }
         }
     }
 
