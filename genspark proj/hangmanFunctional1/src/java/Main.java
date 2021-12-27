@@ -2,15 +2,23 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
+    private static int score = 0;
+    public static int getScore(){
+        return score;
+    }
     public static void main(String[] args) throws IOException {
         chooseWord();
 
     }
     public static void chooseWord() throws IOException {
+        System.out.println("Your score is "+getScore());
         String word = "";
         File file = new File("src/java/words.txt");
         //put file words into a list of Words
@@ -113,13 +121,10 @@ public class Main {
 
                 } else {
                     //if game has ended
-                    System.out.println("Yes! the word is " + word + "! You have won!\nDo you want to play again (yes or no)");
-                    try {
+                    System.out.println("You made it to the next round.. Press enter to move on.. or any other key to exit");
                         input = scanner.nextLine();
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    if (input.equals("y") || input.equals("yes")) {
+                    if (input.isEmpty()) {//the enter key had been pressed
+                        score+=1;
                         chooseWord();
                     }else{
                         System.exit(0);
@@ -134,16 +139,50 @@ public class Main {
                 if (count < 4) {
                     input = scanner.nextLine(); //have to turn this to a character
                 } else {
-                    System.out.println("Would you like to play again (y for yes or anything else for no?)");
-                    input = scanner.nextLine();
-                    if (input.equals("y") || input.equals("yes")) {
-                        chooseWord();
+                    checkHighScore();
+                    if(checkHighScore() > score){
+                        System.out.println("ooooh nice, your score is "+score+", enter a name over 2 characters to save your score");
                     }else{
-                        System.exit(0);
+                        System.out.println("CONGRATULATIONS!!! YOU HAVE THE NEW HIGHEST SCORE.. enter a name to save your score");
+                    }
+                    input = scanner.nextLine();
+                    if(!input.isEmpty()){
+                        storeScore(input);
+                        playAgain();
+                    }else{
+                        System.out.println("your name wasn't the correct length.. your score won't be saved\n");
+                        playAgain();
                     }
                 }
             }
         }
     }
+    public static int checkHighScore() throws IOException {
+        //List to read high scores
+        //ask one of the instructors how I could have checked for a high score in a shorter manner.
+        List<String>scoresList = new ArrayList<>(Files.readAllLines(Paths.get("src/java/scores.txt")));//get content of files
+        String joinedList = String.join(",", scoresList); //join the list and make it a string
+        String[] scoresArr = joinedList.split(","); //split the string and make it an array
+        List<String> onlyScores = IntStream.range(0, scoresArr.length).filter(i -> i % 2 == 1).mapToObj(i -> scoresArr[i]).collect(Collectors.toList()); //get the odd indexes of the array which should be only the scores
+        List<Integer> intList = onlyScores.stream().map(Integer::valueOf).collect(Collectors.toList()); //convert the scores from a string to an integer
+        Integer maxScore = intList.stream().max(Comparator.comparing(Integer::valueOf)).get(); //compare the scores to find the max score
+        System.out.println(maxScore);
+        return maxScore;
+    }
+    public static void playAgain() throws IOException {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Would you like to play again ((y) for yes or anything else for no?)");
+        String input = scanner.nextLine();
+        if (input.equals("y") || input.equals("yes")) {
+            score = 0;
+            chooseWord();
+        }else{
+            System.exit(0);
+        }
+    }
+    public static void storeScore(String input) throws IOException {
+        String storingScore = input+","+ score;
+        Files.write(Paths.get("src/java/scores.txt"), Collections.singleton(storingScore),StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+    }
 }
