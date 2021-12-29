@@ -10,7 +10,7 @@ public class Board {
     PlaceHolder place = new PlaceHolder(); String holder = place.getName();
     Border border = new Border(); String margin = border.getName();
 
-    private String[][] land = {{holder ,m1, hName, margin}, //3X3 array
+    public String[][] land = {{holder ,m1, hName, margin}, //3X3 array
                                 {m1 ,m1, holder, margin},
                                 {holder, holder, m1, margin},
                                  {holder, m1, holder, margin},
@@ -32,7 +32,7 @@ public class Board {
             }
         }return loc;
     }
-    public void combat(){
+    public String combat(){
         int max = 12;
         int min = 1;
         monster1.setStrength((int)(Math.random()*(max - min)) + min); //randomly set health
@@ -42,12 +42,14 @@ public class Board {
         if(chad.getHealth() <= 0){
             System.out.println("The monster hits you for " + monster1.getStrength()+ " damage, your health is less than 0; you have died...");
     //if the monster kills the human
+            return "The monster hits you for " + monster1.getStrength()+ " damage, your health is less than 0; you have died...";
             //ends game
-           System.exit(0);
+            //System.exit(0); code to exit the program and end the game
         }else{
             System.out.println("The monster hits you for " +monster1.strength+ " damage, \n\tyour health is now " +chad.getHealth());
+            return "The monster hits you for " +monster1.strength+ " damage, \n\tyour health is now " +chad.getHealth();
 
-        }return ;
+        }
     }
 
     public Boolean getMonster(){
@@ -67,7 +69,7 @@ public class Board {
        int x = loc[0]; int y = loc[1];
         String space = place.getName();
 
-        if(input.equals("a") && y > 0){ //hello hello hi
+        if(input.equals("a") && y > 0){  //move left
                 if(land[x][y-1] == monster1.getName()){
                     combat();
                 }
@@ -83,7 +85,7 @@ public class Board {
             land[x][y] = space;
             showBoard();
         }
-        if(input.equals("w") && x > 0){
+        if(input.equals("w") && x > 0){ //move up
             if(land[x-1][y] == monster1.getName()){
                 combat();
             }
@@ -91,7 +93,7 @@ public class Board {
             land[x][y] = space;
             showBoard();
         }
-        if(input.equals("s") && x < 3){
+        if(input.equals("s") && x < 3){ //move down
             if(land[x+1][y] == monster1.getName()){
                 combat();
             }

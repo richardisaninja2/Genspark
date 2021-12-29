@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class  Humans{
-    Board board;
-    Scanner scanner = new Scanner(System.in);
+
 
     private int health = 25;
     private String name;
@@ -24,10 +23,7 @@ public class  Humans{
     }
 
 
-    public Humans(int health){
-        this.health = health;
-        board = new Board();
-    }
+
     @Override
     public String toString(){
         return "Human={"+"health= "+health+ "name="+name+"}";
