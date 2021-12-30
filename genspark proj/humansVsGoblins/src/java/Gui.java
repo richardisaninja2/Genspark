@@ -138,7 +138,7 @@ public class Gui {
             choice2.setActionCommand("c2");
 
         combatPanel = new JPanel();
-        combatPanel.setBounds(100,55,600,50);
+        combatPanel.setBounds(100,55,600,55);
         combatPanel.setBackground(Color.black);
         combatPanel.setLayout(new GridLayout(1,4));
         con.add(combatPanel);
@@ -211,16 +211,19 @@ public class Gui {
             int health = board.chad.getHealth();
 
             if(health <= 0){
-                combatLabel.setText("Your health is at or less than 0; Please hit \n okay and run the game again to retry");
+                playerPanel.setVisible(false);
+                combatLabel.setText("<html>Your health is at or less than 0; Please hit  okay<br> and run the game again to retry</html>");
                exitGameHandler(yourChoice);
             }
             else if(!board.showLand().contains(monster)){
-                combatLabel.setText("CONGRATULATIONS!! You beat all the monsters... \n Please hit okay to exit and try again");
+                playerPanel.setVisible(false);
+                combatLabel.setText("<html>CONGRATULATIONS!! You beat all the monsters...  Please hit okay<br> to exit and try again<html>");
                exitGameHandler(yourChoice);
             }
         }
     }
     public void exitGameHandler(String yourChoice){
+
         mainTextPanel.setVisible(false);
         if(yourChoice == "exit"){
             System.exit(0);
