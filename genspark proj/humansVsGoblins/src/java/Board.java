@@ -44,10 +44,12 @@ public class Board {
     //if the monster kills the human
             return "The monster hits you for " + monster1.getStrength()+ " damage, your health is less than 0; you have died...";
             //ends game
+
             //System.exit(0); code to exit the program and end the game
         }else{
             System.out.println("The monster hits you for " +monster1.strength+ " damage, \n\tyour health is now " +chad.getHealth());
             return "The monster hits you for " +monster1.strength+ " damage, \n\tyour health is now " +chad.getHealth();
+
 
         }
     }

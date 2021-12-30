@@ -1,28 +1,26 @@
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class Gui {
     Board board = new Board();
     JFrame window;
     Container con;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, combatPanel;
-    JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName, combatLabel, combatLabelText;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, combatPanel, playAgainPanel;
+    JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName, combatLabel;
     Font titleFont = new Font("JetBrains Mono font", Font.PLAIN, 60);
     Font normalFont = new Font("JetBrains Mono font", Font.PLAIN, 20);
-    JButton startButton, choice1, choice2, choice3, choice4;
+    JButton startButton, choice1, choice2, choice3, choice4, exit, playAgainNo;
     JTextArea mainTextArea;
     int playerHP;
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     ChoiceHandler choiceHandler = new ChoiceHandler();
 
-    public static void Gui(){
-        new Gui();
-    }
+//    public static void Gui(){
+//        new Gui();
+//    }
 
     public Gui(){
         window = new JFrame();
@@ -30,7 +28,7 @@ public class Gui {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.BLACK);
         window.setLayout(null);
-        window.setVisible(true);
+
         con = window.getContentPane();
 
 
@@ -59,8 +57,9 @@ public class Gui {
 
         con.add(titleNamePanel);
         con.add(startButtonPanel);
-
+        window.setVisible(true);
     }
+
     public void createGameScreen(){
 
 
@@ -81,30 +80,26 @@ public class Gui {
         mainTextArea.setLineWrap(true);
         mainTextPanel.add(mainTextArea);
 
+        //exit game button
+        playAgainPanel = new JPanel();
+        playAgainPanel.setBounds(100, 120, 600, 150);
+        playAgainPanel.setBackground(Color.black);
+        con.add(playAgainPanel);
+
+            exit = new JButton("Okay");
+            exit.setBackground(Color.BLACK);
+            exit.setForeground(Color.white);
+            exit.setFont(normalFont);
+            playAgainPanel.add(exit);
+            exit.addActionListener(choiceHandler);
+            exit.setActionCommand("exit");
+
          //panel for direction buttons
          choiceButtonPanel = new JPanel();
-         choiceButtonPanel.setBounds(250,350,300,150);
+         choiceButtonPanel.setBounds(250,350,255,150);
          choiceButtonPanel.setBackground(Color.black);
          //choiceButtonPanel.setLayout(new GridLayout(4, 1)); //grid layout for buttons
          con.add(choiceButtonPanel);
-
-         choice1 = new JButton("up"); //button1
-         choice1.setBackground(Color.black);
-         choice1.setForeground(Color.white);
-         choice1.setFont(normalFont);
-         choiceButtonPanel.add(choice1);
-         choice1.setFocusPainted(false);
-         choice1.addActionListener(choiceHandler);
-         choice1.setActionCommand("c1");
-
-            choice2 = new JButton("down"); //button2
-            choice2.setBackground(Color.black);
-            choice2.setForeground(Color.white);
-            choice2.setFont(normalFont);
-            choiceButtonPanel.add(choice2);
-            choice2.setFocusPainted(false);
-            choice2.addActionListener(choiceHandler);
-            choice2.setActionCommand("c2");
 
         choice3 = new JButton("left"); //button3
         choice3.setBackground(Color.black);
@@ -115,14 +110,32 @@ public class Gui {
         choice3.addActionListener(choiceHandler);
         choice3.setActionCommand("c3");
 
-            choice4 = new JButton("right"); //button 4
-            choice4.setBackground(Color.black);
-            choice4.setForeground(Color.white);
-            choice4.setFont(normalFont);
-            choiceButtonPanel.add(choice4);
-            choice4.setFocusPainted(false);
-            choice4.addActionListener(choiceHandler);
-            choice4.setActionCommand("c4");
+             choice1 = new JButton("up"); //button1
+             choice1.setBackground(Color.black);
+             choice1.setForeground(Color.white);
+             choice1.setFont(normalFont);
+             choiceButtonPanel.add(choice1);
+             choice1.setFocusPainted(false);
+             choice1.addActionListener(choiceHandler);
+             choice1.setActionCommand("c1");
+
+        choice4 = new JButton("right"); //button 4
+        choice4.setBackground(Color.black);
+        choice4.setForeground(Color.white);
+        choice4.setFont(normalFont);
+        choiceButtonPanel.add(choice4);
+        choice4.setFocusPainted(false);
+        choice4.addActionListener(choiceHandler);
+        choice4.setActionCommand("c4");
+
+            choice2 = new JButton("down"); //button2
+            choice2.setBackground(Color.black);
+            choice2.setForeground(Color.white);
+            choice2.setFont(normalFont);
+            choiceButtonPanel.add(choice2);
+            choice2.setFocusPainted(false);
+            choice2.addActionListener(choiceHandler);
+            choice2.setActionCommand("c2");
 
         combatPanel = new JPanel();
         combatPanel.setBounds(100,55,600,50);
@@ -130,13 +143,10 @@ public class Gui {
         combatPanel.setLayout(new GridLayout(1,4));
         con.add(combatPanel);
 
-        combatLabel = new JLabel("action:");//puts hp panel label in the upper JPanel
+        combatLabel = new JLabel("Pick a direction to move");//puts hp panel label in the upper JPanel
         combatLabel.setFont(normalFont);
         combatLabel.setForeground(Color.white);
         combatPanel.add(combatLabel);
-
-
-
 
         playerPanel = new JPanel();
         playerPanel.setBounds(100,15,600,50);
@@ -153,125 +163,67 @@ public class Gui {
             hpLabelNumber.setForeground(Color.white);
             playerPanel.add(hpLabelNumber);
 
-        playerSetup();
+        setUp.playerSetup();
     }
-
-    public void playerSetup(){
-
-    playerHP = board.chad.getHealth();
-        System.out.println("hp = "+ playerHP);
-    hpLabelNumber.setText(""+playerHP);
-
-    }
-    //information for moving chad's location.. these variables are public without a method
-
-    public void moveOutOfBounds(){
-        combatLabel.setText("This move goes out of bounds... try again");
-    }
-    //end public area..
-    public void moveRight(){
-        int[] loc = board.getChadLoc();
-        int x = loc[0]; int y = loc[1];
-        String space = board.place.getName();
-
-        if(board.land[x][y+1] == board.monster1.getName()){
-            board.combat();
-            combatLabel.setText(board.combat());
-            hpLabelNumber.setText(""+board.chad.getHealth());
-        }
-        board.land[x][y+1] = board.land[x][y];
-        board.land[x][y] = space;
-        mainTextArea.setText(board.showLand());
-
-    }
-    public void moveLeft(){
-        int[] loc = board.getChadLoc();
-        int x = loc[0]; int y = loc[1];
-        String space = board.place.getName();
-
-        if(board.land[x][y-1] == board.monster1.getName()){
-            board.combat();
-            combatLabel.setText(board.combat());
-            hpLabelNumber.setText(""+board.chad.getHealth());
-        }
-        board.land[x][y-1] = board.land[x][y];
-        board.land[x][y] = space;
-        mainTextArea.setText(board.showLand());
-
-    }
-    public void moveUp(){
-        int[] loc = board.getChadLoc();
-        int x = loc[0]; int y = loc[1];
-        String space = board.place.getName();
-
-        if(board.land[x-1][y] == board.monster1.getName()){
-            board.combat();
-            combatLabel.setText(board.combat());
-            hpLabelNumber.setText(""+board.chad.getHealth());
-        }
-        board.land[x-1][y] = board.land[x][y];
-        board.land[x][y] = space;
-        mainTextArea.setText(board.showLand());
-
-    }
-    public void moveDown(){
-        int[] loc = board.getChadLoc();
-        int x = loc[0]; int y = loc[1];
-        String space = board.place.getName();
-
-        if(board.land[x+1][y] == board.monster1.getName()){
-            board.combat();
-            combatLabel.setText(board.combat());
-            hpLabelNumber.setText(""+board.chad.getHealth());
-        }
-        board.land[x+1][y] = board.land[x][y];
-        board.land[x][y] = space;
-        mainTextArea.setText(board.showLand());
-
-    }
-
-
+    GuiPlayerSetupBar setUp = new GuiPlayerSetupBar(this);
 
 
     public class TitleScreenHandler implements ActionListener{
         public void actionPerformed(ActionEvent event){
-
             createGameScreen();
         }
     }
+
+    GuiPlayerMovement gp = new GuiPlayerMovement(this);
+
     public class ChoiceHandler implements ActionListener{
         public void actionPerformed(ActionEvent event){
             String yourChoice = event.getActionCommand();
             int[] loc = board.getChadLoc();
             int x = loc[0]; int y = loc[1];
             String space = board.place.getName();
+            String monster = board.m1;
 
             if(yourChoice == "c1" && x > 0){
-                moveUp();
+                gp.moveUp();
             }
             if(yourChoice == "c1" && x == 0){
-                moveOutOfBounds();
+                gp.moveOutOfBounds();
             }
             if(yourChoice == "c2" && x < 3){
-                moveDown();
+                gp.moveDown();
             }
             if(yourChoice == "c2" && x == 3){
-                moveOutOfBounds();
+                gp.moveOutOfBounds();
             }
-
             if(yourChoice == "c3" && y > 0){
-                moveLeft();
+                gp.moveLeft();
             }
             if(yourChoice == "c3" && y == 0){
-                moveOutOfBounds();
+                gp.moveOutOfBounds();
             }
-
             if(yourChoice == "c4" && y < 2){
-                moveRight();
+                gp.moveRight();
             }
             if(yourChoice == "c4" && y == 2){
-                moveOutOfBounds();
+                gp.moveOutOfBounds();
             }
+            int health = board.chad.getHealth();
+
+            if(health <= 0){
+                combatLabel.setText("Your health is at or less than 0; Please hit \n okay and run the game again to retry");
+               exitGameHandler(yourChoice);
+            }
+            else if(!board.showLand().contains(monster)){
+                combatLabel.setText("CONGRATULATIONS!! You beat all the monsters... \n Please hit okay to exit and try again");
+               exitGameHandler(yourChoice);
+            }
+        }
+    }
+    public void exitGameHandler(String yourChoice){
+        mainTextPanel.setVisible(false);
+        if(yourChoice == "exit"){
+            System.exit(0);
         }
     }
 
