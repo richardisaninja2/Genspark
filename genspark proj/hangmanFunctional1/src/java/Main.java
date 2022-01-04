@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -32,36 +33,40 @@ public class Main {
             System.out.println("file does not exist");
         }
     }
-    public static int structure(int count){
+    public static int structure(int count) throws FileNotFoundException {
+        File fileOne = new File("src/java/stateOne.txt");
+        File fileTwo = new File("src/java/stateTwo.txt");
+        File fileThree = new File("src/java/stateThree.txt");
+        File fileFour = new File("src/java/stateFour.txt");
+        Scanner scannerOne = new Scanner(fileOne);
+        Scanner scannerTwo = new Scanner(fileTwo);
+        Scanner scannerThree = new Scanner(fileThree);
+        Scanner scannerFour = new Scanner(fileFour);
         switch(count){
             case 1:
-                System.out.println("+-----+ \n" +
-                        "| \n" +
-                        "| \n" +
-                        "| \n" +
-                        "=========");
+                while(scannerOne.hasNextLine()){
+                    String data = scannerOne.nextLine();
+                    System.out.println(data);
+                }
                 break;
             case 2:
-                System.out.println("+-----+ \n" +
-                        "| O\n" +
-                        "| \n" +
-                        "| \n" +
-                        "=========");
+                while(scannerTwo.hasNextLine()){
+                    String data = scannerTwo.nextLine();
+                    System.out.println(data);
+                }
                 break;
 
             case 3:
-                System.out.println("+-----+ \n" +
-                        "| O\n" +
-                        "| |\n" +
-                        "| \n" +
-                        "=========");
+                while(scannerThree.hasNextLine()){
+                    String data = scannerThree.nextLine();
+                    System.out.println(data);
+                }
                 break;
             case 4:
-                System.out.println("+-----+ \n" +
-                        "| O\n" +
-                        "| |\n" +
-                        "| |\n" +
-                        "=========");
+                while(scannerFour.hasNextLine()){
+                    String data = scannerFour.nextLine();
+                    System.out.println(data);
+                }
                 break;
         }return count;
 
@@ -166,7 +171,6 @@ public class Main {
         List<String> onlyScores = IntStream.range(0, scoresArr.length).filter(i -> i % 2 == 1).mapToObj(i -> scoresArr[i]).collect(Collectors.toList()); //get the odd indexes of the array which should be only the scores
         List<Integer> intList = onlyScores.stream().map(Integer::valueOf).collect(Collectors.toList()); //convert the scores from a string to an integer
         Integer maxScore = intList.stream().max(Comparator.comparing(Integer::valueOf)).get(); //compare the scores to find the max score
-        System.out.println(maxScore);
         return maxScore;
     }
     public static void playAgain() throws IOException {

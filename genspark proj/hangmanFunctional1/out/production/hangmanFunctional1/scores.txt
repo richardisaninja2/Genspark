@@ -5,3 +5,4 @@ t,0
 a,1
 xx,0
 xcx,0
+rich,2
