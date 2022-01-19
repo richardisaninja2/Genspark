@@ -29,14 +29,14 @@ public class InputData {
         int boardingPassNumber = 0; //generate id by looking in file
 
 
-        String name = nameHandler();
-        String email = emailHandler();
-        String gender = getGender();
-        String phoneNumber = phoneNumberHandler();
-
-        String age = ageHandler();
-        String origin = originHandler();
-        String destination = destinationHandler();
+//        String name = nameHandler();
+//        String email = emailHandler();
+//        String gender = getGender();
+//        String phoneNumber = phoneNumberHandler();
+//
+//        String age = ageHandler();
+//        String origin = originHandler();
+//        String destination = destinationHandler();
         String departureTime = departureTimeHandler();
         ArrayList<String> newList = getList();
 
@@ -178,6 +178,7 @@ public class InputData {
             }
 
         }
+        //add a leadig 0 to minutes below 10
 //        System.out.println("hours" +finalHour);
 //        System.out.println("mins " + finalMins);
         int[] arrayToBeConverted = {hourArr, minArr};
@@ -195,12 +196,24 @@ public class InputData {
         Scanner input = new Scanner(System.in);
         //ternary to add a 0 before the minute if minute is less than 10
         String next = input.nextLine();
+//        String strDate = "";
+////        if(arr[1] >= 10){
+////            strDate = next+" "+arr[0]+":"+arr[1];
+////        }if(arr[1] < 10){
+////            strDate = next+" "+arr[0]+":"+0+arr[1];
+////        }if(arr[0] >= 10){
+////            strDate = next+" "+arr[0]+":"+arr[1];
+////        }
+////        if(arr[0] < 10){
+////            strDate = next+" "+0+arr[0]+":"+arr[1];
+////        }
+
         String strDate = arr[1] >= 10 ? next+" "+arr[0]+":"+arr[1] : next+" "+arr[0]+":"+0+arr[1];
         this.setInputDate(next);
 //        System.out.println( "input data "+  this.getInputDate());
 
-//        System.out.println(strDate);
-        if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) (\\d{2}):(\\d{2})")){
+        //System.out.println(strDate);
+        if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){
             try{
                 Date date = dateInput.parse(strDate);
                 //formatted date that needs to go in ArrayList
@@ -231,9 +244,10 @@ public class InputData {
 
         //ternary to add a 0 before the minute if minute is less than 10
         String strDate = arr[1] >= 10 ? this.getInputDate()+" "+arr[0]+":"+arr[1] : this.getInputDate()+" "+arr[0]+":"+0+arr[1];
+        strDate = arr[0] >= 10 ? this.getInputDate()+" "+arr[0]+":"+arr[1] : this.getInputDate()+" "+0+arr[0]+":"+arr[1];
 
 //        System.out.println(strDate);
-        if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) (\\d{2}):(\\d{2})")){
+        if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){
             try{
                 Date date = dateInput.parse(strDate);
                 list.add(String.valueOf(date));
