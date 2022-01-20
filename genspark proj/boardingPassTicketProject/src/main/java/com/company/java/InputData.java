@@ -29,16 +29,16 @@ public class InputData {
         int boardingPassNumber = 0; //generate id by looking in file
 
 
-//        String name = nameHandler();
-//        String email = emailHandler();
-//        String gender = getGender();
-//        String phoneNumber = phoneNumberHandler();
-//
-//        String age = ageHandler();
-//        String origin = originHandler();
-//        String destination = destinationHandler();
+        String name = nameHandler();
+        String email = emailHandler();
+        String gender = getGender();
+        String phoneNumber = phoneNumberHandler();
+
+        String age = ageHandler();
+        String origin = originHandler();
+        String destination = destinationHandler();
         String departureTime = departureTimeHandler();
-        ArrayList<String> newList = getList();
+        ArrayList<String> newList = getList() ;
 
     }
     public String nameHandler(){
