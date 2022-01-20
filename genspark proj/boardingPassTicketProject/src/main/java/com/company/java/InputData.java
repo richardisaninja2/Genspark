@@ -1,7 +1,6 @@
 package com.company.java;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +46,7 @@ public class InputData {
 
         int boardingPassNumber = 0; //generate id by looking in file
 
-        String id = idHandler();
+
         String name = nameHandler();
         String email = emailHandler();
         String gender = getGender();
@@ -59,22 +58,6 @@ public class InputData {
         String departureTime = departureTimeHandler();
         ArrayList<String> newList = getList();
 
-    }
-    public String idHandler() throws FileNotFoundException {
-        File file = new File("saveData.txt");
-        Scanner scanner = new Scanner(file);
-        int actualIdInt = 0;
-        while(scanner.hasNext()){
-            String data = scanner.nextLine();
-            if(!data.isEmpty()){
-                String[] dataArr = data.split(",");
-                String stringId = dataArr[0].substring(1);
-                actualIdInt = Integer.parseInt(stringId);
-            }
-        }
-        String uniqueId = String.valueOf(actualIdInt + 1);
-        list.add(uniqueId);
-        return uniqueId;
     }
     public String nameHandler(){
         Scanner scanner = new Scanner(System.in);
@@ -155,12 +138,7 @@ public class InputData {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input Gender (M, or F)");
         String gender = scanner.nextLine();
-        if(gender.equals("M") || gender.equals("m") || gender.equals("f") || gender.equals("F")){
-            gender = gender;
-            list.add(gender);
-        }else{
-            return getGender();
-        }
+        gender = gender.equals("M") ? gender: gender.equals("m") ? gender : gender.equals("F") ? gender : gender.equals("f") ? gender : getGender();
         list.add(gender);
         return gender;
     }
