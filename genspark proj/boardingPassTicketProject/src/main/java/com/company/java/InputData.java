@@ -1,6 +1,7 @@
 package com.company.java;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,18 +12,35 @@ import java.util.Scanner;
 public class InputData {
     public static ArrayList<String> list = new ArrayList<>();
     private String inputDate;
+    private String origin;
+    private String destination;
 
     public String getInputDate() {
         return inputDate;
     }
-
     public void setInputDate(String inputDate) {
         this.inputDate = inputDate;
     }
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
     public InputData(){}
 
-    public void getInputs() {
+    public void getInputs() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -38,7 +56,7 @@ public class InputData {
         String origin = originHandler();
         String destination = destinationHandler();
         String departureTime = departureTimeHandler();
-        ArrayList<String> newList = getList() ;
+        ArrayList<String> newList = getList();
 
     }
     public String nameHandler(){
@@ -68,10 +86,11 @@ public class InputData {
         String phoneNumber = scanner.nextLine();
         if(phoneNumber.matches("^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")){
             phoneNumber = phoneNumber;
+            list.add(phoneNumber);
         }else{
             return phoneNumberHandler();
         }
-        list.add(phoneNumber);
+
         return phoneNumber;
     }
     public String ageHandler(){
@@ -91,8 +110,13 @@ public class InputData {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Where do you want to go to?");
         String destination = scanner.nextLine();
-        destination =  destination.isEmpty() ? destinationHandler() : destination; //if the input is empty run the function again else return the destination
-        list.add(destination);
+        if(destination.isEmpty()){
+            return destinationHandler();
+        }else{
+            destination = destination;
+            this.destination = destination;
+            list.add(destination);
+        }
         return destination;
     }
 
@@ -100,8 +124,14 @@ public class InputData {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please Input where you intend to DEPART from");
         String origin = scanner.nextLine();
-        origin = origin.isEmpty() ? originHandler() : origin; //if the input is empty run the function again else return the origin
-        list.add(origin);
+        if(origin.isEmpty()){
+            return originHandler();
+        }else{
+            origin = origin;
+            list.add(origin);
+            this.origin = origin;
+        }
+
         return origin;
     }
     public String getGender(){
@@ -112,7 +142,7 @@ public class InputData {
         list.add(gender);
         return gender;
     }
-    public String departureTimeHandler(){
+    public String departureTimeHandler() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please input the hour you intend to DEPART (formatted 01 for 1:00am)");
         int hour = 0;
@@ -142,73 +172,59 @@ public class InputData {
             return departureTimeHandler();
         }
         int[] arr = {hour, minute};
-
         departureDateTimeHandler(arr);
         etaHandler(arr);
         return hour +"-"+ minute;
     }
-    public String etaHandler(int[] arr){
+    public void etaHandler(int[] arr) throws IOException {
         //look into implementing an api to call to google maps to bring in actual eta's
-        int max = 200;
-        int min = 20;
-        int range = max - min + 1;
+        TripInformation tripInformation = new TripInformation();
+        String tripInformationValues = tripInformation.getTripInformation(this.origin, this.destination);
+        int[] newArr = tripInformation.convertTimeStringToInts(tripInformationValues);
+
         int hours = arr[0];
         int mins = arr[1];
-        int hourArr = 0;
-        int minArr = 0;
+        int tripHours = newArr[0];
+        int tripMins = newArr[1];
+
         int finalHour = 0;
         int finalMins = 0;
-        int randomTimeEta = (int)(Math.random() * range) + min;
-        double totalEtaDivided = randomTimeEta;
-        int floor = (int)Math.floor(randomTimeEta/60);
-        System.out.println(totalEtaDivided);
+
+        int totalHours = tripHours + hours;
+        int actualEtaMins = tripMins + mins;
+
+        double etaDouble = actualEtaMins;
+//        System.out.println(etaDouble);
         double tempMin = 0;
 
-        if(totalEtaDivided < 59){
-            hourArr = hours;
-           minArr = (int )(mins + totalEtaDivided);
-        }else if(totalEtaDivided > 59){
-            hourArr = hours+ floor;
-            minArr =  mins + (int)((totalEtaDivided/60 - floor) *60);
-            //if minArr is over 60 add 1 to hours and move the remainder to the mins
-            if(minArr > 59){
-                finalHour = hourArr + (int)(Math.floor((double)minArr/60)) - 1;
-                tempMin = ((double) minArr/60 - Math.floor((double)minArr/60)) * 60;
-                finalMins = (int)tempMin;
-            }
+       if(actualEtaMins < 59){
+           finalHour = hours + tripHours;
+           finalMins = actualEtaMins;
+       }else if(actualEtaMins > 59){
+           finalHour = totalHours + (int)Math.floor(etaDouble/60);
+           tempMin = (((double)actualEtaMins/60) - Math.floor(actualEtaMins/60)) * 60;
+           finalMins = (int) tempMin;
+       }
 
-        }
-        //add a leadig 0 to minutes below 10
-//        System.out.println("hours" +finalHour);
-//        System.out.println("mins " + finalMins);
-        int[] arrayToBeConverted = {hourArr, minArr};
-//        convertEtaToDate(arrayToBeConverted);
-        list.add(hourArr+"-"+minArr);
-        convertEtaToDate(arr);
-    return hourArr +"-"+ minArr;
+        int[] arrayToBeConverted = {finalHour, finalMins};
+        convertEtaToDate(arrayToBeConverted);
+    return;
     }
 
     public String departureDateTimeHandler(int[] arr){
         int h = arr[0];
         int m = arr[1];
-        SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy hh:mm"); //"yyyy-MM-dd"
+//        System.out.println(h);
+//        System.out.println(m);
+        SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //"yyyy-MM-dd"
         System.out.println("Please input date in format (MM-dd-yyyy)");
         Scanner input = new Scanner(System.in);
         //ternary to add a 0 before the minute if minute is less than 10
         String next = input.nextLine();
-//        String strDate = "";
-////        if(arr[1] >= 10){
-////            strDate = next+" "+arr[0]+":"+arr[1];
-////        }if(arr[1] < 10){
-////            strDate = next+" "+arr[0]+":"+0+arr[1];
-////        }if(arr[0] >= 10){
-////            strDate = next+" "+arr[0]+":"+arr[1];
-////        }
-////        if(arr[0] < 10){
-////            strDate = next+" "+0+arr[0]+":"+arr[1];
-////        }
 
         String strDate = arr[1] >= 10 ? next+" "+arr[0]+":"+arr[1] : next+" "+arr[0]+":"+0+arr[1];
+
+
         this.setInputDate(next);
 //        System.out.println( "input data "+  this.getInputDate());
 
@@ -232,19 +248,21 @@ public class InputData {
     }
 
     public ArrayList<String> getList(){
-//        System.out.println("hashmap = "+list);
+        System.out.println("hashmap = "+list);
         return list;
     }
 
     public String convertEtaToDate(int[] arr){
         int h = arr[0];
         int m = arr[1];
-        SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy hh:mm"); //"yyyy-MM-dd"
+//        System.out.println("eta h" + h);
+//        System.out.println("eta m" +m);
+        SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //"yyyy-MM-dd"
 
 
         //ternary to add a 0 before the minute if minute is less than 10
         String strDate = arr[1] >= 10 ? this.getInputDate()+" "+arr[0]+":"+arr[1] : this.getInputDate()+" "+arr[0]+":"+0+arr[1];
-        strDate = arr[0] >= 10 ? this.getInputDate()+" "+arr[0]+":"+arr[1] : this.getInputDate()+" "+0+arr[0]+":"+arr[1];
+        strDate = arr[0] >= 10 ? this.getInputDate()+" "+h+":"+m : this.getInputDate()+" "+0+h+":"+m;
 
 //        System.out.println(strDate);
         if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){

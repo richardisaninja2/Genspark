@@ -8,13 +8,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         InputData inputData = new InputData();
-        SendInput sendInput = new SendInput();
-        ReceiveInput receiveInput = new ReceiveInput();
-//        String mario = "mario";
-//        inputData.getInputs();
-//        sendInput.save();
-        receiveInput.getSpecificUser("rosa");
-        //receiveInput.getInfo();
+
+        inputData.getInputs();
+//        TripInformation tripInformation = new TripInformation();
+//        tripInformation.getTripInformation("france", "england");
 //        System.out.println(Jsoup.connect("https://www.travelmath.com/flying-time/from/Dallas,+TX/to/Oregon+City,+OR").get());
     }
 }
