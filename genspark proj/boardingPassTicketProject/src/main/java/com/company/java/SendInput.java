@@ -15,6 +15,7 @@ import java.util.List;
 
 public class SendInput {
     InputData inputData = new InputData();
+    ReceiveInput receiveInput = new ReceiveInput();
 
     public void save() throws IOException {
 
@@ -27,4 +28,12 @@ public class SendInput {
         Files.write(Paths.get("saveData.txt"), Collections.singleton(info), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
     }
+
+    public void userSaveInfo() throws IOException {
+        Charset utf8 = StandardCharsets.UTF_8;
+
+         Files.write(Paths.get("UserInfo.txt"), Collections.singleton(receiveInput.getInfo()), StandardOpenOption.CREATE);
+    }
+
+
 }

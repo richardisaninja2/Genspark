@@ -161,7 +161,7 @@ public class InputData {
         }else{
             return getGender();
         }
-        list.add(gender);
+
         return gender;
     }
     public String departureTimeHandler() throws IOException {

@@ -24,8 +24,8 @@ public class ReceiveInput {
     String[] info = data.split(",");
 
 
-       String answer ="Name: " + info[0].substring(1) + "   Email:" + info[1] + "    Sex:" + info[2] +"  " + " Phone Number:" + info[3]
-               + "    Depart From:" + info[5] + "      Going To:" + info[6] + "      Date : " + info[7];
+       String answer ="Name: " + info[1].substring(1) + "\n" + "Email:" + info[2] + "\n" + "Sex:" + info[3] + "\nPhone Number:" + info[4] + "\nAge:  " + info[5]
+               + "\nDepart From:" + info[6] + "\nGoing To:" + info[7] + "\nDate : " + info[8] + "\nETA:  " + info[9] + "\nTicket ID#: " +info[0].substring(1) ;
 
 
           System.out.println(answer);

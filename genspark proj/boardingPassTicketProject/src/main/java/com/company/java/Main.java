@@ -13,6 +13,7 @@ public class Main {
         inputData.getInputs();
         sendInput.save();
         recieveInput.getInfo();
+        sendInput.userSaveInfo();
 //        TripInformation tripInformation = new TripInformation();
 //        tripInformation.getTripInformation("france", "england");
 //        System.out.println(Jsoup.connect("https://www.travelmath.com/flying-time/from/Dallas,+TX/to/Oregon+City,+OR").get());
