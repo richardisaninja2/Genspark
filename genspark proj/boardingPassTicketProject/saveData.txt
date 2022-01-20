@@ -8,3 +8,6 @@
 [jim, 2@t.com, f, 123-123-1234, 12, texas, arizona, Thu Feb 02 04:12:00 CST 2012, 6-12, Thu Feb 02 04:12:00 CST 2012]
 [rosa, 2@t.com, f, 222-222-1212, 12, texas, arizona, Thu Feb 02 05:12:00 CST 1212, 5-47, Thu Feb 02 05:12:00 CST 1212]
 [Timmy Lee, r@yahoo.com, M, 201-222-2222, 32, Texas, Vegas, Mon Apr 04 06:30:00 CDT 2022, 7-66, Mon Apr 04 06:30:00 CDT 2022]
+[Richard, a@a.com, m, 678-856-9846, 12, france, germany, Sat Dec 03 01:21:00 EST 2022, Sat Dec 03 02:48:00 EST 2022]
+[richard, a@a.com, m, 678-876-6789, 12, france, england, Sat Dec 03 10:56:00 EST 2022, Sat Dec 03 12:36:00 EST 2022]
+[fred, a@a.com, m, 567-456-3456, 23, texas, georgia, Sat Dec 03 12:56:00 EST 2022, Sat Dec 03 15:06:00 EST 2022]

@@ -248,7 +248,7 @@ public class InputData {
     }
 
     public ArrayList<String> getList(){
-        System.out.println("hashmap = "+list);
+//        System.out.println("hashmap = "+list);
         return list;
     }
 
