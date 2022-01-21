@@ -14,11 +14,14 @@ public class TripInformation {
         String url = "https://www.travelmath.com/flying-time/from/"+from+"/to/"+to;
         Document document = Jsoup.connect(url).get();
         Element time = document.getElementById("flyingtime");
-        String timeText = time.text();
-    //check to make sure there is an hour or else the program breaks
+        String timeText = "0 0";
+        if(time != null){
+            timeText = time.text();
+            //check to make sure there is an hour or else the program breaks
 //
 //        System.out.println(timeText);
-        convertTimeStringToInts(timeText);
+            convertTimeStringToInts(timeText);
+        }
         return timeText;
     }
     public int[] convertTimeStringToInts(String time) throws IOException {
@@ -27,6 +30,10 @@ public class TripInformation {
 //        System.out.println("wordSplit "+ Arrays.toString(wordSplit));
         int hour = 0;
         int min = 0;
+        if(wordSplit.length == 1){
+            hour = 0;
+            min = 0;
+        }
         if(wordSplit.length == 2){
             hour = 0;
             min = Integer.parseInt(wordSplit[0]);

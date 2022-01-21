@@ -5,10 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class InputData {
     public static ArrayList<String> list = new ArrayList<>();
@@ -164,7 +161,12 @@ public class InputData {
             destination = destination;
             this.destination = destination;
             this.setDestination(destination);
-            list.add(destination);
+            if(list.size() <= 7){
+                list.add("destination");
+
+            }else{
+                list.set(7, destination);
+            }
         }
         return destination;
     }
@@ -177,11 +179,14 @@ public class InputData {
             return originHandler();
         }else{
             origin = origin;
-            list.add(origin);
+            if(list.size() <= 6){
+                list.add("origin");
+            }
+
             this.origin = origin;
             this.setOrigin(origin);
         }
-
+        list.set(6, origin); //incase it needs to be updates hold the position with 0 and update it every time the function is called
         return origin;
     }
     public String genderHandler(){
@@ -228,6 +233,7 @@ public class InputData {
             return departureTimeHandler();
         }
         int[] arr = {hour, minute};
+
         departureDateTimeHandler(arr);
         etaHandler(arr);
         return hour +"-"+ minute;
@@ -235,13 +241,20 @@ public class InputData {
     public void etaHandler(int[] arr) throws IOException {
         //look into implementing an api to call to google maps to bring in actual eta's
         TripInformation tripInformation = new TripInformation();
-        String tripInformationValues = tripInformation.getTripInformation(this.origin, this.destination);
+        String tripInformationValues = tripInformation.getTripInformation(InputData.origin, InputData.destination);
         int[] newArr = tripInformation.convertTimeStringToInts(tripInformationValues);
-
+        while(newArr[0] == 0 && newArr[1] == 0){
+            System.out.println("Please enter a valid Origin and Destination");
+            originHandler();
+            destinationHandler();
+             tripInformationValues = tripInformation.getTripInformation(InputData.origin, InputData.destination);
+             newArr = tripInformation.convertTimeStringToInts(tripInformationValues);
+        }{
         int hours = arr[0];
         int mins = arr[1];
         int tripHours = newArr[0];
         int tripMins = newArr[1];
+
 
         int finalHour = 0;
         int finalMins = 0;
@@ -264,6 +277,8 @@ public class InputData {
 
         int[] arrayToBeConverted = {finalHour, finalMins};
         convertEtaToDate(arrayToBeConverted);
+    }
+
     return;
     }
 
@@ -293,7 +308,14 @@ public class InputData {
 
 //                System.out.printf("Departure Date: %tc", date); //this is to show in a readable context
                 //put into hashMap
-                list.add(String.valueOf(date));
+
+
+                if(list.size() <= 8){
+                    list.add("x");
+
+                }list.set(8, String.valueOf(date));
+//                list.add(String.valueOf(date));
+
             } catch (ParseException e) {
                 System.out.println("parse exception");
             }
@@ -324,7 +346,14 @@ public class InputData {
         if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){
             try{
                 Date date = dateInput.parse(strDate);
-                list.add(String.valueOf(date));
+//                list.add(String.valueOf(date));
+                int size = list.size();
+                if(list.size() <= 9){
+                    list.add("g");
+
+                }
+                    list.set(9,String.valueOf(date));
+
                 //formatted date that needs to go in ArrayList
                 //new SimpleDateFormat("yyy-MM-dd").format(date)
 //                System.out.printf("Arrival Date: %tc", date); //this is to show in a readable context
