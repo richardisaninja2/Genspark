@@ -31,8 +31,9 @@ public class SendInput {
 
     public void userSaveInfo() throws IOException {
         Charset utf8 = StandardCharsets.UTF_8;
+        GenerateTicketPrice generateTicketPrice = new GenerateTicketPrice();
 
-         Files.write(Paths.get("UserInfo.txt"), Collections.singleton(receiveInput.getInfo()), StandardOpenOption.CREATE);
+        Files.write(Paths.get("UserInfo.txt"), Collections.singleton(receiveInput.getInfo()), StandardOpenOption.CREATE);
     }
 
 

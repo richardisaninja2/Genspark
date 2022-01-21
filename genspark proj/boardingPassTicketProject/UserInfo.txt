@@ -1,10 +1,13 @@
-Name: Jas
-Email: d@d.com
+Ticket Price:  $200
+
+Name: PURPLE
+Email: s@a.com
 Sex: M
 Phone Number: 222-222-2222
-Age:   24
-Depart From: Texas
-Going To: Arizona
-Date :  Wed Feb 02 08:20:00 CST 2022
-ETA:   Wed Feb 02 10:29:00 CST 2022]
-Ticket ID#: 17
+Age:   25
+Depart From: GA
+Going To: TX
+Date :  Thu Dec 22 12:12:00 EST 2022
+ETA:   Thu Dec 22 14:22:00 EST 2022
+Ticket ID#: 69
+

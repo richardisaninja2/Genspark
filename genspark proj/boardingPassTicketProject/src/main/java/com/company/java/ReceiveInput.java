@@ -24,11 +24,11 @@ public class ReceiveInput {
     String[] info = data.split(",");
 
 
-       String answer ="Name: " + info[1].substring(1) + "\n" + "Email:" + info[2] + "\n" + "Sex:" + info[3] + "\nPhone Number:" + info[4] + "\nAge:  " + info[5]
-               + "\nDepart From:" + info[6] + "\nGoing To:" + info[7] + "\nDate : " + info[8] + "\nETA:  " + info[9] + "\nTicket ID#: " +info[0].substring(1) ;
+       String answer = "Ticket Price: "+info[10].substring(0, info[10].length() - 1) + "\n\nName: " + info[1].substring(1).toUpperCase() + "\n" + "Email:" + info[2] + "\n" + "Sex:" + info[3].toUpperCase() + "\nPhone Number:" + info[4] + "\nAge:  " + info[5]
+               + "\nDepart From:" + info[6].toUpperCase() + "\nGoing To:" + info[7].toUpperCase() + "\nDate : " + info[8] + "\nETA:  " + info[9] + "\nTicket ID#: " +info[0].substring(1);
 
 
-          System.out.println(answer);
+//          System.out.println(answer);
         return answer;
 
     }

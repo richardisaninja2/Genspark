@@ -10,6 +10,7 @@ public class Main {
         InputData inputData = new InputData();
         ReceiveInput recieveInput = new ReceiveInput();
         SendInput sendInput = new SendInput();
+//        GenerateTicketPrice generateTicketPrice = new GenerateTicketPrice();
         inputData.getInputs();
         sendInput.save();
         recieveInput.getInfo();

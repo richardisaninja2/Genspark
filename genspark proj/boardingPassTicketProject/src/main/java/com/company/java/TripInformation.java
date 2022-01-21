@@ -21,7 +21,8 @@ public class TripInformation {
         convertTimeStringToInts(timeText);
         return timeText;
     }
-    public int[] convertTimeStringToInts(String time){
+    public int[] convertTimeStringToInts(String time) throws IOException {
+        GenerateTicketPrice generateTicketPrice = new GenerateTicketPrice();
     String[] wordSplit = time.split(" ");
 //        System.out.println("wordSplit "+ Arrays.toString(wordSplit));
         int hour = 0;
@@ -34,7 +35,9 @@ public class TripInformation {
             min = Integer.parseInt(wordSplit[2]);
         }
 //        System.out.println("hour" + hour + "min"+ min);
+
        int[] arr = {hour, min};
+        generateTicketPrice.generateTicketPrice(arr);
     return arr;
     }
 }

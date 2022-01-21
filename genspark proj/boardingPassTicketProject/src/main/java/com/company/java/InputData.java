@@ -12,15 +12,33 @@ import java.util.Scanner;
 
 public class InputData {
     public static ArrayList<String> list = new ArrayList<>();
-    private String inputDate;
-    private String origin;
-    private String destination;
+    private static String inputDate;
+    private static String origin;
+    private static String destination;
+    private static String age;
+    private static String gender;
+
+    public static String getAge() {
+        return age;
+    }
+
+    public static void setAge(String age) {
+        InputData.age = age;
+    }
+
+    public static String getGender() {
+        return gender;
+    }
+
+    public static void setGender(String gender) {
+        InputData.gender = gender;
+    }
 
     public String getInputDate() {
         return inputDate;
     }
     public void setInputDate(String inputDate) {
-        this.inputDate = inputDate;
+        InputData.inputDate = inputDate;
     }
 
     public String getOrigin() {
@@ -28,7 +46,7 @@ public class InputData {
     }
 
     public void setOrigin(String origin) {
-        this.origin = origin;
+        InputData.origin = origin;
     }
 
     public String getDestination() {
@@ -36,7 +54,7 @@ public class InputData {
     }
 
     public void setDestination(String destination) {
-        this.destination = destination;
+        InputData.destination = destination;
     }
 
     public InputData(){}
@@ -50,15 +68,22 @@ public class InputData {
         String id = idHandler();
         String name = nameHandler();
         String email = emailHandler();
-        String gender = getGender();
+        String gender = genderHandler();
         String phoneNumber = phoneNumberHandler();
 
         String age = ageHandler();
         String origin = originHandler();
         String destination = destinationHandler();
         String departureTime = departureTimeHandler();
+        String ticketPrice = ticketPriceHandler();
         ArrayList<String> newList = getList();
 
+    }
+
+    public String ticketPriceHandler(){
+        String ticketPrice = GenerateTicketPrice.getTicketPrice();
+        list.add(ticketPrice);
+        return ticketPrice;
     }
     public String idHandler() throws FileNotFoundException {
         File file = new File("saveData.txt");
@@ -80,7 +105,12 @@ public class InputData {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please input your Name");
         String name = scanner.nextLine();
-        list.add(name);
+        if(!name.isEmpty()){
+            list.add(name);
+        }else{
+            return nameHandler();
+        }
+
         return name;
     }
 
@@ -117,6 +147,7 @@ public class InputData {
         if(scanner.hasNextInt()){
             age = scanner.nextInt();
             list.add(String.valueOf(age));
+            InputData.setAge(String.valueOf(age));
         }else{
             return ageHandler();
         }
@@ -132,6 +163,7 @@ public class InputData {
         }else{
             destination = destination;
             this.destination = destination;
+            this.setDestination(destination);
             list.add(destination);
         }
         return destination;
@@ -147,17 +179,19 @@ public class InputData {
             origin = origin;
             list.add(origin);
             this.origin = origin;
+            this.setOrigin(origin);
         }
 
         return origin;
     }
-    public String getGender(){
+    public String genderHandler(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input Gender (M, or F)");
         String gender = scanner.nextLine();
         if(gender.equals("M") || gender.equals("m") || gender.equals("f") || gender.equals("F")){
             gender = gender;
             list.add(gender);
+            InputData.setGender(gender);
         }else{
             return getGender();
         }
