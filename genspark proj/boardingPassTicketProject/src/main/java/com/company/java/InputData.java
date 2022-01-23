@@ -333,37 +333,85 @@ public class InputData {
     public String convertEtaToDate(int[] arr){
         int h = arr[0];
         int m = arr[1];
-//        System.out.println("eta h" + h);
+        double tempH = 0;
+
+        if(h > 24){
+            tempH = ((((double)h / 24) - (int)Math.floor(h/24)) * 24);
+            h = (int)tempH;
+            System.out.println(h);
+
+            //added code below this for if houyr is above 24
+            System.out.println("eta h" + h);
 //        System.out.println("eta m" +m);
-        SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //"yyyy-MM-dd"
+            SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //"yyyy-MM-dd"
 
 
-        //ternary to add a 0 before the minute if minute is less than 10
-        String strDate = arr[1] >= 10 ? this.getInputDate()+" "+arr[0]+":"+arr[1] : this.getInputDate()+" "+arr[0]+":"+0+arr[1];
-        strDate = arr[0] >= 10 ? this.getInputDate()+" "+h+":"+m : this.getInputDate()+" "+0+h+":"+m;
+            //ternary to add a 0 before the minute if minute is less than 10
+            String strDate = arr[1] >= 10 ? this.getInputDate()+" "+arr[0]+":"+arr[1] : this.getInputDate()+" "+arr[0]+":"+0+arr[1];
+            strDate = arr[0] >= 10 ? this.getInputDate()+" "+h+":"+m : this.getInputDate()+" "+0+h+":"+m;
 
 //        System.out.println(strDate);
-        if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){
-            try{
-                Date date = dateInput.parse(strDate);
+            if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){
+                try{
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(dateInput.parse(strDate));
+                    c.add(Calendar.DATE, 1);
+                    String arrTime = dateInput.format(c.getTime());
+//                    Date date = dateInput.parse(strDate);
+
 //                list.add(String.valueOf(date));
-                int size = list.size();
-                if(list.size() <= 9){
-                    list.add("g");
+                    int size = list.size();
+                    if(list.size() <= 9){
+                        list.add("g");
 
-                }
-                    list.set(9,String.valueOf(date));
+                    }
+                    list.set(9,arrTime);
 
-                //formatted date that needs to go in ArrayList
-                //new SimpleDateFormat("yyy-MM-dd").format(date)
+                    //formatted date that needs to go in ArrayList
+                    //new SimpleDateFormat("yyy-MM-dd").format(date)
 //                System.out.printf("Arrival Date: %tc", date); //this is to show in a readable context
-            } catch (ParseException e) {
-                System.out.println("parse exception");
+                } catch (ParseException e) {
+                    System.out.println("parse exception");
+                }
+
+            }else{
+                departureDateTimeHandler(arr);
             }
-        }else{
-            departureDateTimeHandler(arr);
+            return strDate;
+        }else {
+//        System.out.println("eta h" + h);
+//        System.out.println("eta m" +m);
+            SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //"yyyy-MM-dd"
+
+
+            //ternary to add a 0 before the minute if minute is less than 10
+            String strDate = arr[1] >= 10 ? this.getInputDate() + " " + arr[0] + ":" + arr[1] : this.getInputDate() + " " + arr[0] + ":" + 0 + arr[1];
+            strDate = arr[0] >= 10 ? this.getInputDate() + " " + h + ":" + m : this.getInputDate() + " " + 0 + h + ":" + m;
+
+//        System.out.println(strDate);
+            if (strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")) {
+                try {
+                    Date date = dateInput.parse(strDate);
+//                list.add(String.valueOf(date));
+                    int size = list.size();
+                    if (list.size() <= 9) {
+                        list.add("g");
+
+                    }
+                    list.set(9, String.valueOf(date));
+
+                    //formatted date that needs to go in ArrayList
+                    //new SimpleDateFormat("yyy-MM-dd").format(date)
+//                System.out.printf("Arrival Date: %tc", date); //this is to show in a readable context
+                } catch (ParseException e) {
+                    System.out.println("parse exception");
+                }
+            } else {
+                departureDateTimeHandler(arr);
+            }
+            return strDate;
         }
-        return strDate;
+
     }
 
 }
