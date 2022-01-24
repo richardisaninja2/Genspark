@@ -337,10 +337,9 @@ public class InputData {
         if(h > 24){
             tempH = ((((double)h / 24) - (int)Math.floor(h/24)) * 24);
             h = (int)tempH;
-            System.out.println(h);
+            m = arr[1];
 
             //added code below this for if houyr is above 24
-            System.out.println("eta h" + h);
 //        System.out.println("eta m" +m);
             SimpleDateFormat dateInput = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //"yyyy-MM-dd"
 
@@ -350,12 +349,13 @@ public class InputData {
             strDate = arr[0] >= 10 ? this.getInputDate()+" "+h+":"+m : this.getInputDate()+" "+0+h+":"+m;
 
 //        System.out.println(strDate);
-            if(strDate.matches("(\\d{2})-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){
+            if(strDate.matches("([01]?[0-9]|2[0-3])-(\\d{2})-(\\d{4}) ([01]?[0-9]|2[0-3]):([0-5]?[0-9]|60)")){
                 try{
                     Calendar c = Calendar.getInstance();
                     c.setTime(dateInput.parse(strDate));
                     c.add(Calendar.DATE, 1);
-                    String arrTime = dateInput.format(c.getTime());
+//                    String arrTime = dateInput.format(c.getTime());
+                    Date arrTime = c.getTime();
 //                    Date date = dateInput.parse(strDate);
 
 //                list.add(String.valueOf(date));
@@ -364,7 +364,7 @@ public class InputData {
                         list.add("g");
 
                     }
-                    list.set(9,arrTime);
+                    list.set(9,String.valueOf(arrTime));
 
                     //formatted date that needs to go in ArrayList
                     //new SimpleDateFormat("yyy-MM-dd").format(date)
