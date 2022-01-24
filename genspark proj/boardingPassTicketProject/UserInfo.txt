@@ -10,6 +10,4 @@ Going To: DESTINATION
 Date :  Sat Dec 03 23:23:00 EST 2022
 ETA:   12-04-2022 10:19
 Ticket ID#: 103
-et ID#: 102
 
-00
