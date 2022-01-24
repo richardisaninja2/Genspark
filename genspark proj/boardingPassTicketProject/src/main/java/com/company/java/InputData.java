@@ -334,7 +334,7 @@ public class InputData {
         int m = arr[1];
         double tempH = 0;
 
-        if(h > 24){
+        if(h >= 24){
             tempH = ((((double)h / 24) - (int)Math.floor(h/24)) * 24);
             h = (int)tempH;
             m = arr[1];

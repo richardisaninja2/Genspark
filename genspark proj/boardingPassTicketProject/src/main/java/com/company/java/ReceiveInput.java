@@ -28,28 +28,10 @@ public class ReceiveInput {
                + "\nDepart From:" + info[6].toUpperCase() + "\nGoing To:" + info[7].toUpperCase() + "\nDate : " + info[8] + "\nETA:  " + info[9] + "\nTicket ID#: " +info[0].substring(1);
 
 
-//          System.out.println(answer);
+
         return answer;
 
     }
 
-//    public String getSpecificUser(String name) throws IOException {
-//        File file = new File("C:\\Users\\ososm\\Desktop\\Genspark\\genspark proj\\boardingPassTicketProject\\saveData.txt");
-//        Scanner scan = new Scanner(file);
-//        String data= "";
-//        data = scan.nextLine();
-//        String[] info = data.split(",");
-//        while(scan.hasNext()){
-//            String[] info = data.split(",");
-//            if(scan.nextLine() == name){
-//
-//                System.out.println("Name: " + info[0].substring(1) + "   Email:" + info[1] + "    Sex:" + info[2] +"  " + " Phone Number:" + info[3]
-//                        + "    Depart From:" + info[5] + "      Going To:" + info[6] + "      Date : " + info[7]);
-//                return  "Name: " + info[0].substring(1) + "   Email:" + info[1] + "    Sex:" + info[2] +"  " + " Phone Number:" + info[3]
-//                        + "    Depart From:" + info[5] + "      Going To:" + info[6] + "      Date : " + info[7];
-//            }
-//        }
-//        return "Name: " + info[0] + "   Email:" + info[1] + "    Sex:" + info[2] +"  " + " Phone Number:" + info[3]
-//                + "    Depart From:" + info[5] + "      Going To:" + info[6] + "      Date : " + info[7];
-//    }
+
 }

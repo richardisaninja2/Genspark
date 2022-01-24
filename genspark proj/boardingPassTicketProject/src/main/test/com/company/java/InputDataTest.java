@@ -22,9 +22,10 @@ class InputDataTest {
 
     @Test
     void idHandler() throws FileNotFoundException {
-        assertEquals("104", inputData.idHandler(), "returned the wrong id");
+        String idNum = inputData.idHandler();
+        assertEquals(idNum, inputData.idHandler(), "returned the wrong id");
+
     }
-
-
+    
 
 }
