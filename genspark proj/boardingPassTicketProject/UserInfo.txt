@@ -1,13 +1,14 @@
-Ticket Price:  $1000
+Ticket Price:  $100
 
-Name: G
+Name: RICA
 Email: a@a.com
 Sex: M
-Phone Number: 444-444-4456
+Phone Number: 555-555-5567
 Age:   25
 Depart From: FRANCE
-Going To: DESTINATION
-Date :  Sat Dec 03 23:23:00 EST 2022
-ETA:   12-04-2022 10:19
-Ticket ID#: 103
+Going To: ENGLAND
+Date :  Sat Dec 03 23:21:00 EST 2022
+ETA:   12-04-2022 01:00
+Ticket ID#: 107
+
 

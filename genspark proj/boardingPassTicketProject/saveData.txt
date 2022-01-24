@@ -102,3 +102,7 @@
 [101, jim, a@a.com, m, 223-232-2345, 25, france, destination, Wed Dec 21 23:22:00 EST 2022, Wed Dec 21 10:18:00 EST 2022, $1000]
 [102, by, a@a.com, m, 555-556-4567, 25, france, destination, Sat Dec 03 23:21:00 EST 2022, Sat Dec 03 10:17:00 EST 2022, $1000]
 [103, g, a@a.com, m, 444-444-4456, 25, france, destination, Sat Dec 03 23:23:00 EST 2022, 12-04-2022 10:19, $1000]
+[104, br, a@a.com, m, 445-456-4567, 25, france, brazil, Sat Dec 03 23:23:00 EST 2022, 12-04-2022 10:19, $1000]
+[105, ric, a@a.com, m, 444-556-5678, 25, france, brazil, Fri Dec 03 23:21:00 EST 2021, 12-04-2021 10:17, $1000]
+[106, rich, a@a.com, m, 333-333-3323, 25, france, brazil, Fri Dec 03 23:21:00 EST 2021, 12-04-2021 10:17, $1000]
+[107, rica, a@a.com, m, 555-555-5567, 25, france, england, Sat Dec 03 23:21:00 EST 2022, 12-04-2022 01:00, $100]

@@ -164,9 +164,10 @@ public class InputData {
             if(list.size() <= 7){
                 list.add("destination");
 
-            }else{
+            }{
                 list.set(7, destination);
             }
+
         }
         return destination;
     }
