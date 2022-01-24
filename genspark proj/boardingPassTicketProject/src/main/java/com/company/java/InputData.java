@@ -308,8 +308,6 @@ public class InputData {
 
 //                System.out.printf("Departure Date: %tc", date); //this is to show in a readable context
                 //put into hashMap
-
-
                 if(list.size() <= 8){
                     list.add("x");
 
